@@ -1,0 +1,25 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+RegisterComponent
+import { CheckboxModule } from 'primeng/checkbox';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
+import { RegisterComponent } from './register.component';
+
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+    ButtonModule,
+    CheckboxModule,
+    InputTextModule,
+    FormsModule,
+    PasswordModule,
+    ReactiveFormsModule
+  ]
+})
+export class RegisterModule { 
+  
+}
