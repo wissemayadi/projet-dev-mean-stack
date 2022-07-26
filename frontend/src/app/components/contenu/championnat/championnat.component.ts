@@ -136,7 +136,7 @@ export class ChampionnatComponent implements OnInit {
         this.loadData();
         let doc = new jsPDF.default('l', 'pt');
         var img = new Image();
-        img.src = 'assets/logo.png';
+        img.src = 'assets/images/logo1.png';  
         doc.addImage(img, 'png', 100, 20, 100, 100);
         doc.setTextColor(0, 0, 139);
         var date = formatDate(new Date(), 'yyyy/MM/dd hh:mm a', 'en');

@@ -71,7 +71,7 @@ updateChamp() {
                 this.arbitres.push(res.data);
                 this.arbitres = [...this.arbitres];
                 this.updateDialog = false;
-                // this.championnat;  // reopen with ancien data
+                // this.arbitres;  // reopen with ancien data
             },
         });
     }

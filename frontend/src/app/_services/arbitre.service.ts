@@ -21,7 +21,7 @@ export class ArbitreService {
     return this.http.post(this.API_URL + '/create/', champ);
   }
   
-  updateChampionnat(atbitre: Arbitre): Observable<any> {
+  updateChampionnat(Arbitre: Arbitre): Observable<any> {
     return this.http.put(
       this.API_URL + '/update/' + Arbitre._id,
       Arbitre

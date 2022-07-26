@@ -13,6 +13,10 @@
                             class="p-button-success mr-2"
                             (click)="openNew()"
                         ></button>
+                        <button type="button" pButton pRipple icon="pi pi-file" (click)="todotable.exportCSV()" class="mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+                        <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+                        <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="downloadPDF()" class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+                        
                         <!-- <button
                             pButton
                             pRipple
@@ -57,22 +61,16 @@
                     <div
                         class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
                     >
-                        <h5 class="m-0">Manage Products</h5>
+                        <h5 class="m-0">Gestion Championnats</h5>
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input
-                                #globalSearch
-                                pInputText
-                                type="text"
-                                (input)="
-                                    todotable.filterGlobal(
-                                        globalSearch.value,
-                                        'contains'
-                                    )
-                                "
-                                placeholder="Search..."
-                                class="w-full sm:w-auto"
-                            />
+                            #globalSearch
+                            pInputText
+                            type="text"
+                            (input)="todotable.filterGlobal(globalSearch.value, 'contains')"
+                            placeholder="Search keyword"
+                          />
                         </span>
                     </div>
                 </ng-template>
@@ -151,6 +149,7 @@
                         </th>
                         <th>
                             <input
+                                
                                 pInputText
                                 type="text"
                                 (input)="
@@ -163,49 +162,16 @@
                                 placeholder="Search with Terrain"
                             />
                         </th>
-                        <!-- <th>
+                        <th>
                         <input
+                        
                           pInputText
                           type="text"
-                          (input)="todotable.filter($event.target, 'arbitre', 'startsWith')"
+                          (input)="todotable.filter(todotable.value, 'arbitre', 'startsWith')"
                           placeholder="Search with Arbitre"
                         />
-                      </th> -->
-                        <th>
-                            <p-columnFilter
-                                field="arbitre"
-                                matchMode="in"
-                                display="menu"
-                                [showMatchModes]="false"
-                                [showOperator]="false"
-                                [showAddButton]="false"
-                            >
-                                <ng-template
-                                    pTemplate="filter"
-                                    let-value
-                                    let-filter="filterCallback"
-                                >
-                                    <p-multiSelect
-                                        #globalSearcharbitre
-                                        [ngModel]="value"
-                                        [options]="userlist"
-                                        placeholder="Any"
-                                        (onChange)="filter(todotable.value)"
-                                        optionLabel="nom"
-                                    >
-                                        <!-- <ng-template let-option pTemplate="item"> -->
-                                        <div
-                                            class="p-multiselect-representative-option"
-                                        >
-                                            <span class="ml-1">{{
-                                                todotable.value
-                                            }}</span>
-                                        </div>
-                                        <!-- </ng-template> -->
-                                    </p-multiSelect>
-                                </ng-template>
-                            </p-columnFilter>
-                        </th>
+                      </th>
+                      
                         <th style="text-align: center">
                             <input
                                 #globalSearchscore
