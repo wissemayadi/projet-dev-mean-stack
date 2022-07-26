@@ -59,14 +59,14 @@ export class ChampionnatComponent implements OnInit {
     }
 
     loadData() {
-        // this.ArbitreService.getAllArbitre().subscribe({
-        //     next: (res) => {
-        //         this.userlist = res.data;
-        //     },
-        //     error: (err) => {
-        //         console.error(err);
-        //     },
-        // });
+        this.ArbitreService.getAllArbitre().subscribe({
+            next: (res) => {
+                this.userlist = res.data;
+            },
+            error: (err) => {
+                console.error(err);
+            },
+        });
 
         this.championnatService.getAllChampionnat().subscribe({
             next: (res) => {
@@ -210,7 +210,7 @@ export class ChampionnatComponent implements OnInit {
                     this.championnats.push(res.data);
                     this.championnats = [...this.championnats];
                     this.updateDialog = false;
-                    // this.championnat;  // reopen with ancien data
+                    this.championnat;  // reopen with ancien data
                 },
             });
         }

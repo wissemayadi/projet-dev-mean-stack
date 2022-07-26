@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Arbitre } from 'src/app/_models/arbitre';
 import { ArbitreService } from 'src/app/_services/arbitre.service';
 
@@ -7,7 +7,7 @@ import { ArbitreService } from 'src/app/_services/arbitre.service';
     selector: 'app-arbitre',
     templateUrl: './arbitre.component.html',
     styleUrls: ['./arbitre.component.scss'],
-    providers: [ConfirmationService],
+    providers: [ConfirmationService, MessageService],
 
 })
 export class ArbitreComponent implements OnInit {
@@ -19,9 +19,13 @@ export class ArbitreComponent implements OnInit {
         private ArbitreService: ArbitreService,
         private ConfirmationService: ConfirmationService
     ) {}
-
+    cols!: any[];
     ngOnInit(): void {
         this.loadData();
+        this.cols = [
+          { field: 'nom', header: 'Nom', customExportHeader: 'nom' },
+         
+      ];
 
     }
     loadData() {
