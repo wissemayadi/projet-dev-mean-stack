@@ -7,7 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { RegisterComponent } from './register.component';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
-
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     PasswordModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MessagesModule,
+    MessageModule
   
   ]
 })
