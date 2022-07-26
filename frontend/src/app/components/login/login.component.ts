@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 `]
 })
 export class LoginComponent implements OnInit {
- 
+ msg!:"error";
   loginForm!: FormGroup;
   formSubmitted: boolean = false;
   constructor(private router:Router,private s:AuthService) { }
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
     this.formSubmitted = true;
     if (this.loginForm.invalid) {
       return alert("please introduce your data");
+      
     }
     this.s.loginAdmin(this.loginForm.value).subscribe((response: any) => {
         // set the token in the localStorage
