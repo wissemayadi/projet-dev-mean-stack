@@ -1,1 +1,421 @@
-<p>terrains works!</p>
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button
+                            pButton
+                            pRipple
+                            label="New"
+                            icon="pi pi-plus"
+                            class="p-button-success mr-2"
+                            (click)="openNew()"
+                        ></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right"> </ng-template>
+            </p-toolbar>
+
+            <p-table
+                #todotable
+                [value]="terrains"
+                [columns]="cols"
+                responsiveLayout="scroll"
+                [rows]="10"
+                [globalFilterFields]="['name']"
+                [rows]="10"
+                [paginator]="true"
+                [rowsPerPageOptions]="[10, 20, 30]"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                selectionMode="multiple"
+                [rowHover]="true"
+                dataKey="id"
+            >
+                <ng-template pTemplate="caption">
+                    <div
+                        class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+                    >
+                        <h5 class="m-0">Manage Terrain</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input
+                                #globalSearch
+                                pInputText
+                                type="text"
+                                (input)="
+                                    todotable.filterGlobal(
+                                        globalSearch.value,
+                                        'contains'
+                                    )
+                                "
+                                placeholder="Search..."
+                                class="w-full sm:w-auto"
+                            />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">
+                            Name <p-sortIcon field="name"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="email">
+                            email
+                            <p-sortIcon field="email"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="location">
+                            location <p-sortIcon field="location"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="state">
+                            state <p-sortIcon field="state"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="type">
+                            type <p-sortIcon field="type"></p-sortIcon>
+                        </th>
+                        <th
+                            pSortableColumn="surface"
+                            style="text-align: center"
+                        >
+                            surface
+                            <p-sortIcon field="surface"></p-sortIcon>
+                        </th>
+                        <th
+                            pSortableColumn="capacity"
+                            style="text-align: center"
+                        >
+                            capacity
+                            <p-sortIcon field="capacity"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="phone" style="text-align: center">
+                            phone
+                            <p-sortIcon field="phone"></p-sortIcon>
+                        </th>
+                        <th
+                            pSortableColumn="balances"
+                            style="text-align: center"
+                        >
+                            balances
+                            <p-sortIcon field="balances"></p-sortIcon>
+                        </th>
+
+                        <th>centre</th>
+                        <th>action</th>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center">
+                            <input
+                                #globalSearchscore
+                                pInputText
+                                type="text"
+                                (input)="
+                                    todotable.filter(
+                                        globalSearchscore.value,
+                                        'name',
+                                        'startsWith'
+                                    )
+                                "
+                                placeholder="Search with bame"
+                            />
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <button (click)="balanceAffiche(terrain)">
+                                balance
+                            </button>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-terrain>
+                    <tr
+                        *ngIf="terrain.balance != 0"
+                        [style.color]="balanceAffiche(terrain)"
+                    >
+                        <td>{{ terrain.name }}</td>
+                        <td>{{ terrain.email }}</td>
+                        <td>{{ terrain.location }}</td>
+                        <td>{{ terrain.state }}</td>
+                        <td>{{ terrain.type }}</td>
+                        <td>{{ terrain.surface }}</td>
+                        <td>{{ terrain.capacity }}</td>
+                        <td>{{ terrain.phone }}</td>
+                        <td>{{ terrain.balances }}</td>
+
+                        <td style="text-align: center">
+                            {{ terrain.centre }}
+                        </td>
+
+                        <td>
+                            <div class="flex">
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2"
+                                    (click)="updateChampDialog(terrain)"
+                                ></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-trash"
+                                    class="p-button-rounded p-button-warning"
+                                    (click)="deleteChamp(terrain)"
+                                ></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <p-dialog
+            [(visible)]="updateDialog"
+            [style]="{ width: '450px' }"
+            header="Add terrain"
+            [modal]="true"
+            class="p-fluid"
+        >
+            <ng-template pTemplate="content">
+                <div class="field">
+                    <label for="name">name</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="nomChamp"
+                        [(ngModel)]="terrain.name"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !terrain.name
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !terrain.name"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <div class="field">
+                    <label for="name">email</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="nomChamp"
+                        [(ngModel)]="terrain.email"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !terrain.email
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !terrain.email"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <div class="field">
+                    <label for="typeChamp">Type</label>
+                    <br />
+                    <select
+                        id="typeChamp"
+                        pInputText
+                        [(ngModel)]="terrain.type"
+                        required
+                        autofocus
+                    >
+                        <option value="Amateur">gazon</option>
+                        <option value="professionel">artificiel</option>
+                    </select>
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !terrain.type"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <div class="field">
+                    <label for="equipChamp">location</label>
+                    <br />
+                    <input
+                        id="equipChamp"
+                        pInputText
+                        [(ngModel)]="terrain.location"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !terrain.name
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !terrain.location"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+
+                <div class="field">
+                    <label for="scorChamp">phone</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="scorChamp"
+                        [(ngModel)]="terrain.phone"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !terrain.phone
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !terrain.phone"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <div class="field">
+                    <label for="scorChamp">state</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="scorChamp"
+                        [(ngModel)]="terrain.state"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !terrain.state
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !terrain.state"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <div class="field">
+                    <label for="scorChamp">surface</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="scorChamp"
+                        [(ngModel)]="terrain.surface"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !terrain.surface
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !terrain.surface"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <div class="field">
+                    <label for="scorChamp">capacity</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="scorChamp"
+                        [(ngModel)]="terrain.capacity"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty':
+                                submitted && !terrain.capacity
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !terrain.capacity"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <div class="field">
+                    <label for="scorChamp">balances</label>
+                    <input
+                        type="text"
+                        pInputText
+                        id="scorChamp"
+                        [(ngModel)]="terrain.balances"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty':
+                                submitted && !terrain.balances
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !terrain.balances"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <div class="field">
+                    <label for="scorChamp">centre</label>
+                    <select
+                        type="text"
+                        pInputText
+                        id="scorChamp"
+                        [(ngModel)]="terrain.centre"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !terrain.centre
+                        }"
+                    >
+                        <option value="Complexe sansiro">
+                            Complexe sansiro
+                        </option>
+                        <option value="Complexe inter">Complexe inter</option>
+                    </select>
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !terrain.centre"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Annuler"
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    (click)="updateDialog = false"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Confirmer"
+                    icon="pi pi-check"
+                    class="p-button-text"
+                    (click)="updateChamp()"
+                ></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+    </div>
+</div>

@@ -32,6 +32,12 @@ export class AppMenuComponent implements OnInit {
                         routerLink: ['/contenu/utilisateurs'],
                     },
                     {
+                        label: 'Centres',
+                        icon: 'pi pi-fw pi-map-marker',
+                        routerLink: ['/contenu/centres'],
+                    },
+
+                    {
                         label: 'Terrains',
                         icon: 'pi pi-fw pi-map-marker',
                         routerLink: ['/contenu/terrains'],
@@ -51,6 +57,7 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-users',
                         routerLink: ['/contenu/arbitre'],
                     },
+
                     {
                         label: 'Championnat',
                         icon: 'pi pi-fw pi-globe',

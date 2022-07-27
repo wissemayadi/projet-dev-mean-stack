@@ -43,6 +43,7 @@ import { RouterModule } from '@angular/router';
         HttpClientModule,
         BrowserModule,
         UtilisateursModule,
+        ChartModule
         
     ],
     providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],

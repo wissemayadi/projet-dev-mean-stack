@@ -23,6 +23,23 @@ export class ChampionnatComponent implements OnInit {
     public championnat: Championnat = new Championnat();
     public updateDialog: boolean = false;
     userlist = [];
+    poule = [
+        {label: 'Poule1', value: 'Poule1'},
+        {label: 'Poule2', value: 'Poule2'},
+        {label: 'Poule3', value: 'Poule3'}
+    ];
+    terrians = [
+        {label: '15 Octobre', value: '15 Octobre'},
+        {label: 'Rades', value: 'Rades'}
+      
+    ];
+
+    type = [
+        {label: 'Pro', value: 'Pro'},
+        {label: 'Amateur', value: 'Amateur'},
+      
+    ];
+
     selecteduser = [];
     submitted: boolean | undefined;
     data: any;
@@ -51,13 +68,17 @@ export class ChampionnatComponent implements OnInit {
             { field: 'arbitre', header: 'Arbitre' },
             { field: 'score', header: 'Score' },
         ];
+       
+
+   
+
 
         this.exportColumns = this.cols.map((col) => ({
             title: col.header,
             dataKey: col.field,
         }));
     }
-
+  
     loadData() {
         this.ArbitreService.getAllArbitre().subscribe({
             next: (res) => {
@@ -163,7 +184,7 @@ export class ChampionnatComponent implements OnInit {
 
     downloadFile(championnats: any) {
         const replacer = (key: any, value: null) =>
-            value === null ? '' : value; // specify how you want to handle null values here
+            value === null ? '' : value; 
         const header = Object.keys(championnats[0]);
         let csv = championnats.map((row: { [x: string]: any }) =>
             header
@@ -197,11 +218,14 @@ export class ChampionnatComponent implements OnInit {
             this.championnatService
                 .updateChampionnat(this.championnat)
                 .subscribe({
+                    
                     next: (res) => {
                         this.championnats[
                             this.findIndexById(this.championnat._id)
                         ] = res.data;
+                        this.updateDialog = false;
                     },
+                    
                 });
         } else {
             this.submitted = true;
@@ -210,15 +234,17 @@ export class ChampionnatComponent implements OnInit {
                     this.championnats.push(res.data);
                     this.championnats = [...this.championnats];
                     this.updateDialog = false;
-                    this.championnat;  // reopen with ancien data
+                    // this.championnat;  // reopen with ancien data
                 },
             });
         }
     }
 
+    
+
     deleteChamp(champ: Championnat) {
         this.confirmationService.confirm({
-            message: 'Are you sure you want to delete ' + champ.nom + '?',
+            message: 'Vous etes sur de supprimer ' + champ.nom + '?',
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {

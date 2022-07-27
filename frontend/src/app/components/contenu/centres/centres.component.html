@@ -1,0 +1,313 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button
+                            pButton
+                            pRipple
+                            label="New"
+                            icon="pi pi-plus"
+                            class="p-button-success mr-2"
+                            (click)="openNew()"
+                        ></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right"> </ng-template>
+            </p-toolbar>
+
+            <p-table
+                #todotable
+                [value]="centres"
+                [columns]="cols"
+                responsiveLayout="scroll"
+                [rows]="10"
+                [globalFilterFields]="['name', 'location']"
+                [rows]="10"
+                [paginator]="true"
+                [rowsPerPageOptions]="[10, 20, 30]"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                selectionMode="multiple"
+                [rowHover]="true"
+                dataKey="id"
+            >
+                <ng-template pTemplate="caption">
+                    <div
+                        class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+                    >
+                        <h5 class="m-0">Center</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input
+                                #globalSearch
+                                pInputText
+                                type="text"
+                                (input)="
+                                    todotable.filterGlobal(
+                                        globalSearch.value,
+                                        'contains'
+                                    )
+                                "
+                                placeholder="Search..."
+                                class="w-full sm:w-auto"
+                            />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">
+                            Name <p-sortIcon field="name"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="email">
+                            email
+                            <p-sortIcon field="email"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="location">
+                            location <p-sortIcon field="location"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="phone">
+                            phone <p-sortIcon field="phone"></p-sortIcon>
+                        </th>
+
+                        <th>terrain</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <input
+                                #globalSearchname
+                                pInputText
+                                type="text"
+                                (input)="
+                                    todotable.filter(
+                                        globalSearchname.value,
+                                        'name',
+                                        'startsWith'
+                                    )
+                                "
+                                placeholder="Search with name"
+                            />
+                        </th>
+
+                        <th>
+                            <input
+                                #globalSearchequipe
+                                pInputText
+                                type="text"
+                                (input)="
+                                    todotable.filter(
+                                        globalSearchequipe.value,
+                                        'email',
+                                        'startsWith'
+                                    )
+                                "
+                                placeholder="Search with email"
+                            />
+                        </th>
+                        <th>
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    todotable.filter(
+                                        $event.target,
+                                        'location',
+                                        'startsWith'
+                                    )
+                                "
+                                placeholder="Search with location"
+                            />
+                        </th>
+
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-centres>
+                    <tr>
+                        <td>{{ centres.name }}</td>
+                        <td>{{ centres.email }}</td>
+                        <td>{{ centres.location }}</td>
+                        <td>{{ centres.phone }}</td>
+                        <td style="text-align: center">
+                            {{ centres.terrain }}
+                        </td>
+
+                        <td>
+                            <div class="flex">
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2"
+                                    (click)="updateChampDialog(centre)"
+                                ></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-trash"
+                                    class="p-button-rounded p-button-warning"
+                                    (click)="deleteChamp(centre)"
+                                ></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <p-dialog
+            [(visible)]="updateDialog"
+            [style]="{ width: '450px' }"
+            header="Gestion de centre"
+            [modal]="true"
+            class="p-fluid"
+        >
+            <ng-template pTemplate="content">
+                <!-- Nom centre -->
+                <div class="field">
+                    <label for="name">name</label>
+
+                    <input
+                        type="text"
+                        pInputText
+                        id="nomChamp"
+                        [(ngModel)]="centre.name"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !centre.name
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !centre.name"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <!-- Type centre -->
+                <div class="field">
+                    <label for="typeChamp">email</label>
+                    <br />
+                    <input
+                        id="typeChamp"
+                        pInputText
+                        [(ngModel)]="centre.email"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !centre.email
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !centre.email"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <!-- Equipes centre -->
+                <div class="field">
+                    <label for="equipChamp">location</label>
+                    <br />
+                    <input
+                        id="equipChamp"
+                        pInputText
+                        [(ngModel)]="centre.location"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !centre.location
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !centre.location"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <!-- Centre centre -->
+                <div class="field">
+                    <label for="terrChamp">phone</label>
+                    <br />
+                    <input
+                        id="terrChamp"
+                        pInputText
+                        [(ngModel)]="centre.phone"
+                        required
+                        autofocus
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': submitted && !centre.phone
+                        }"
+                    />
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !centre.phone"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <!-- Centre centre -->
+                <div class="field">
+                    <label for="terrain">terrain</label>
+                    <br />
+                    <!-- <p-multiSelect
+                        [options]="userlist"
+                        [(ngModel)]="centre.terrain"
+                        optionLabel="terrain"
+                        placeholder="select terrain"
+                        display="chip"
+                        optionValue="terrain"
+                        (onChange)="log()"
+                    ></p-multiSelect> -->
+                    <select
+                        id="terrChamp"
+                        pInputText
+                        [(ngModel)]="centre.terrain"
+                        required
+                        autofocus
+                    >
+                        <option value="sansiro">sansiro</option>
+                        <option value="inter">inter</option>
+                    </select>
+
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !centre.terrain"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Annuler"
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    (click)="updateDialog = false"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Confirmer"
+                    icon="pi pi-check"
+                    class="p-button-text"
+                    (click)="updateChamp()"
+                ></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+    </div>
+</div>

@@ -12,6 +12,8 @@ const { DB, PORT } = require("./config");
 const app = exp();
 const arbitre = require("./routes/arbitre");
 const championnat = require("./routes/championnats");
+const terrain = require("./routes/terrain");
+const centre = require("./routes/centre");
 
 // Middlewares
 app.use(cors());
@@ -24,6 +26,8 @@ require("./middlewares/passport")(passport);
 app.use("/api/users", require("./routes/users"));
 app.use("/api/arbitre", arbitre);
 app.use("/api/championnat", championnat);
+app.use("/api/terrain", terrain);
+app.use("/api/centre", centre);
 
 const startApp = async () => {
   try {

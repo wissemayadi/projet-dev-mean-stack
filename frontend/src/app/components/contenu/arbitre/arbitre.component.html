@@ -11,25 +11,15 @@
                             label="New"
                             icon="pi pi-plus"
                             class="p-button-success mr-2"
-                            (click)="openNew()"
+                            (click)="addChampDialog()"
                         ></button>
-                        <!-- <button
-                            pButton
-                            pRipple
-                            label="Delete"
-                            icon="pi pi-trash"
-                            class="p-button-danger"
-                            (click)="deleteChamp()"
-                            [disabled]="
-                                !selectedProducts || !selectedProducts.length
-                            "
-                        ></button> -->
+                      
                     </div>
                 </ng-template>
 
                 <ng-template pTemplate="right"> </ng-template>
             </p-toolbar>
-            <!-- [(selection)]="selectedProducts" -->
+   
             <p-table
                 #todotable
                 [value]="arbitres"
@@ -90,7 +80,7 @@
                                         'startsWith'
                                     )
                                 "
-                                placeholder="Search with Nom"
+                                placeholder="Filtrer"
                             />
                         </th>
 
@@ -110,6 +100,13 @@
                                     class="p-button-rounded p-button-success mr-2"
                                     (click)="updateChampDialog(arbitre)"
                                 ></button>
+                                <button
+                                pButton
+                                pRipple
+                                icon="pi pi-trash"
+                                class="p-button-rounded p-button-warning"
+                                (click)="deleteChamp(arbitre)"
+                            ></button>
                             </div>
                         </td>
                     </tr>

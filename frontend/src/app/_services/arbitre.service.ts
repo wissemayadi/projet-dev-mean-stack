@@ -27,6 +27,10 @@ export class ArbitreService {
       Arbitre
     );
   }
+  deleteChampionnat(Arbitre: Arbitre): Observable<any> {
+    return this.http.delete(this.API_URL + '/delete/' + Arbitre._id);
+  }
+  
 
 
 }

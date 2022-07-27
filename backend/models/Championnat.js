@@ -5,9 +5,9 @@ const championnat = new Schema(
 
 {
     nom: { type: String },
-    typeChampionnat: { type: String },
-    equipe: { type: String },
-    terrain: { type: String },
+    typeChampionnat: { type: []},
+    equipe: { type: []  },
+    terrain: { type:[]},
     arbitre: { type: [] },
     score: { type: Number },
   });

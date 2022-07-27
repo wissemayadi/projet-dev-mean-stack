@@ -15,14 +15,18 @@ import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToggleButtonModule } from 'primeng/togglebutton';
-import { TerrainsComponent } from './terrains/terrains.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { EquipesComponent } from './equipes/equipes.component';
 import { ChampionnatComponent } from './championnat/championnat.component';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
+import { ChartModule } from 'primeng/chart';
 import { ArbitreComponent } from './arbitre/arbitre.component';
+import { CentresComponent } from './centres/centres.component';
+import { TerrainsComponent } from './terrains/terrains.component';
+
 
 @NgModule({
     declarations: [
@@ -33,6 +37,7 @@ import { ArbitreComponent } from './arbitre/arbitre.component';
         EquipesComponent,
         ChampionnatComponent,
         ArbitreComponent,
+        CentresComponent
     ],
     imports: [
         CommonModule,
@@ -54,6 +59,7 @@ import { ArbitreComponent } from './arbitre/arbitre.component';
         DialogModule,
         ReactiveFormsModule,
         ConfirmDialogModule,
+        ChartModule
     ],
 })
 export class ContenuModule {}

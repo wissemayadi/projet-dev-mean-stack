@@ -15,6 +15,8 @@ export class ArbitreComponent implements OnInit {
     public arbitre: Arbitre = new Arbitre();
     public updateDialog: boolean = false;
     submitted: boolean | undefined;
+  championnatService: any;
+  championnats: any;
     constructor(
         private ArbitreService: ArbitreService,
         private ConfirmationService: ConfirmationService
@@ -62,6 +64,7 @@ updateChamp() {
                     this.arbitres[
                         this.findIndexById(this.arbitre._id)
                     ] = res.data;
+                    this.updateDialog = false;
                 },
             });
     } else {
@@ -76,6 +79,27 @@ updateChamp() {
         });
     }
 }
+
+
+deleteChamp(champ: Arbitre) {
+  this.ConfirmationService.confirm({
+      message: 'Vous etes sur de supprimer ' + champ.nom + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+          this.ArbitreService.deleteChampionnat(champ).subscribe({
+              next: (res) => {
+                  this.arbitres = this.arbitres.filter(
+                      (val: { _id: string; }) => val._id !== champ._id
+                  );
+                  console.log(res);
+              },
+          });
+      },
+  });
+}
+
+
 
 findIndexById(id: string): number {
   let index = -1;

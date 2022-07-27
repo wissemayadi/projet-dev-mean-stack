@@ -5,35 +5,66 @@
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
                     <div class="my-2">
+                        Ajouter Championnat:
+                        &nbsp;&nbsp;&nbsp;
                         <button
                             pButton
                             pRipple
                             label="New"
                             icon="pi pi-plus"
                             class="p-button-success mr-2"
-                            (click)="openNew()"
+                            (click)="addChampDialog()"
                         ></button>
-                        <button type="button" pButton pRipple icon="pi pi-file" (click)="todotable.exportCSV()" class="mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
-                        <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
-                        <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="downloadPDF()" class="p-button-warning mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
-                        
-                        <!-- <button
+                        Exporter CSV:
+                        &nbsp;&nbsp;&nbsp;
+                        <button
+                            type="button"
                             pButton
                             pRipple
-                            label="Delete"
-                            icon="pi pi-trash"
-                            class="p-button-danger"
-                            (click)="deleteChamp()"
-                            [disabled]="
-                                !selectedProducts || !selectedProducts.length
-                            "
-                        ></button> -->
+                            icon="pi pi-file"
+                            (click)="todotable.exportCSV()"
+                            class="mr-2"
+                            pTooltip="CSV"
+                            tooltipPosition="bottom"
+                        ></button>
+                        Exporter Excel:
+                        &nbsp;&nbsp;&nbsp;
+                        <button
+                            type="button"
+                            pButton
+                            pRipple
+                            icon="pi pi-file-excel"
+                            (click)="exportExcel()"
+                            class="p-button-success mr-2"
+                            pTooltip="XLS"
+                            tooltipPosition="bottom"
+                        ></button>
+                        Exporter PDF:
+                        &nbsp;&nbsp;&nbsp;
+                        <button
+                            type="button"
+                            pButton
+                            pRipple
+                            icon="pi pi-file-pdf"
+                            (click)="downloadPDF()"
+                            class="p-button-warning mr-2"
+                            pTooltip="PDF"
+                            tooltipPosition="bottom"
+                        ></button>
+                        <div class="statis" style="width: 20rem">
+                            <p-chart
+                                type="pie"
+                                [data]="data"
+                                [options]="chartOptions"
+                            ></p-chart>
+                        </div>
+                      
                     </div>
                 </ng-template>
 
                 <ng-template pTemplate="right"> </ng-template>
             </p-toolbar>
-            <!-- [(selection)]="selectedProducts" -->
+           
             <p-table
                 #todotable
                 [value]="championnats"
@@ -65,12 +96,17 @@
                         <span class="block mt-2 md:mt-0 p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input
-                            #globalSearch
-                            pInputText
-                            type="text"
-                            (input)="todotable.filterGlobal(globalSearch.value, 'contains')"
-                            placeholder="Search keyword"
-                          />
+                                #globalSearch
+                                pInputText
+                                type="text"
+                                (input)="
+                                    todotable.filterGlobal(
+                                        globalSearch.value,
+                                        'contains'
+                                    )
+                                "
+                                placeholder="Search keyword"
+                            />
                         </span>
                     </div>
                 </ng-template>
@@ -101,7 +137,9 @@
                     </tr>
                     <tr>
                         <th>
+                          
                             <input
+                            
                                 #globalSearchname
                                 pInputText
                                 type="text"
@@ -112,7 +150,7 @@
                                         'startsWith'
                                     )
                                 "
-                                placeholder="Search with Nom"
+                                placeholder="Filtrer avec nom"
                             />
                         </th>
 
@@ -128,7 +166,7 @@
                                         'startsWith'
                                     )
                                 "
-                                placeholder="Search with Type"
+                                placeholder="Filtrer avec type"
                             />
                         </th>
 
@@ -144,12 +182,11 @@
                                         'startsWith'
                                     )
                                 "
-                                placeholder="Search with Equipe"
+                                placeholder="Filtrer avec equipe"
                             />
                         </th>
                         <th>
                             <input
-                                
                                 pInputText
                                 type="text"
                                 (input)="
@@ -159,19 +196,24 @@
                                         'startsWith'
                                     )
                                 "
-                                placeholder="Search with Terrain"
+                                placeholder="Filtrer avec terrain"
                             />
                         </th>
                         <th>
-                        <input
-                        
-                          pInputText
-                          type="text"
-                          (input)="todotable.filter(todotable.value, 'arbitre', 'startsWith')"
-                          placeholder="Search with Arbitre"
-                        />
-                      </th>
-                      
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    todotable.filter(
+                                        todotable.value,
+                                        'arbitre',
+                                        'startsWith'
+                                    )
+                                "
+                                placeholder="Search with Arbitre"
+                            />
+                        </th>
+
                         <th style="text-align: center">
                             <input
                                 #globalSearchscore
@@ -184,7 +226,7 @@
                                         'startsWith'
                                     )
                                 "
-                                placeholder="Search with Meuilleur"
+                                placeholder="Filtrer avec meilleur"
                             />
                         </th>
                         <th></th>
@@ -225,7 +267,7 @@
 
         <p-dialog
             [(visible)]="updateDialog"
-            [style]="{ width: '450px' }"
+            [style]="{ width: '1000px' , height:'1000px' }"
             header="Gestion de championnat"
             [modal]="true"
             class="p-fluid"
@@ -253,7 +295,7 @@
                     </small>
                 </div>
                 <!-- Type championnat -->
-                <div class="field">
+                <!-- <div class="field">
                     <label for="typeChamp">Type</label>
                     <select
                         id="typeChamp"
@@ -270,9 +312,26 @@
                     >
                         Champ obligatoire.
                     </small>
+                </div> -->
+                <div class="field">
+                    <label for="typeChamp">Type Championnat</label>
+                    <p-multiSelect
+                        [options]="type"
+                        [(ngModel)]="championnat.typeChampionnat"
+                        optionLabel="label"
+                        placeholder="selectionner type"
+                        display="chip"
+                       optionValue="value"
+                    ></p-multiSelect>
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !championnat.typeChampionnat"
+                    >
+                        Champ obligatoire.
+                    </small>
                 </div>
                 <!-- Equipes championnat -->
-                <div class="field">
+                <!-- <div class="field">
                     <label for="equipChamp">Equipes</label>
                     <select
                         id="equipChamp"
@@ -291,9 +350,45 @@
                     >
                         Champ obligatoire.
                     </small>
+                </div> -->
+                <div class="field">
+                    <label for="equipChamp">equipe</label>
+                    <p-multiSelect
+                        [options]="poule"
+                        [(ngModel)]="championnat.equipe"
+                        optionLabel="label"
+                        placeholder="selectionner equipe"
+                        display="chip"
+                       optionValue="value"
+                       
+                    ></p-multiSelect>
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !championnat.equipe"
+                    >
+                        Champ obligatoire.
+                    </small>
                 </div>
                 <!-- Terrain championnat -->
                 <div class="field">
+                    <label for="terrChamp">Terrains</label>
+                    <p-multiSelect
+                        [options]="terrians"
+                        [(ngModel)]="championnat.terrain"
+                        optionLabel="label"
+                        placeholder="selectionner terrain"
+                        display="chip"
+                       optionValue="value"
+                       
+                    ></p-multiSelect>
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !championnat.terrain"
+                    >
+                        Champ obligatoire.
+                    </small>
+                </div>
+                <!-- <div class="field">
                     <label for="terrChamp">Terrain</label>
                     <select
                         id="terrChamp"
@@ -312,7 +407,7 @@
                     >
                         Champ obligatoire.
                     </small>
-                </div>
+                </div> -->
                 <!-- Arbitre championnat -->
                 <div class="field">
                     <label for="arbitre">Arbitre</label>
