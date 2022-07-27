@@ -14,7 +14,8 @@ const arbitre = require("./routes/arbitre");
 const championnat = require("./routes/championnats");
 const terrain = require("./routes/terrain");
 const centre = require("./routes/centre");
-
+const eauipesRoutes = require("./routes/equipe");
+const membersRoutes = require("./routes/member");
 // Middlewares
 app.use(cors());
 app.use(bp.json());
@@ -28,6 +29,8 @@ app.use("/api/arbitre", arbitre);
 app.use("/api/championnat", championnat);
 app.use("/api/terrain", terrain);
 app.use("/api/centre", centre);
+app.use("/api/equipes", eauipesRoutes);
+app.use("/api/members", membersRoutes);
 
 const startApp = async () => {
   try {

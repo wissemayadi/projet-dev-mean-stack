@@ -1,0 +1,43 @@
+
+<div >
+  <table [dataSource]="dataSource" color="primary" mat-flat-table mat-table matSort set-color>
+
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header  style="width: 150px"> Nom</th>
+      <td  *matCellDef="let element" mat-cell> {{element.name}}  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="numberOfMembers">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header style="width: 150px"> Nombre des membres</th>
+      <td  *matCellDef="let element" mat-cell> {{element.numberOfMembers ? element.numberOfMembers :0}} </td>
+    </ng-container>
+    <ng-container matColumnDef="maxSize">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header style="width: 150px"> Nbr max joueur</th>
+      <td  *matCellDef="let element" mat-cell> {{element.maxSize}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef class="line-actions" mat-header-cell>Actions</th>
+      <td *matCellDef="let element" class="line-actions" mat-cell>
+        <ng-container >
+          <button (click)="removeTeam(element)" aria-label="Example icon-button with a menu" mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button (click)="editTeam(element)" aria-label="Example icon-button with a menu" mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
+        </ng-container>
+      </td>
+    </ng-container>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;let i=index;" class="{{i%2===1?'odd':'even'}}" mat-row></tr>
+  </table>
+
+  <mat-paginator [pageSize]="10"
+                 color="primary" hidePageSize="true" mat-flat-paginator set-color
+                 showFirstLastButtons></mat-paginator>
+
+
+
+
+</div>

@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <div *ngIf="team">
+        <form (submit)="submitForm()" [formGroup]="form" class="container" >
+          <mat-form-field appearance="outline" class="col-12 col-md-6" >
+            <mat-label>Nom d'équipe</mat-label>
+            <input #name formControlName="name"  maxlength="255" matInput placeholder="Nom d'équipe" required>
+            <mat-error *ngIf="f['name'].invalid">
+              Veuillez saisir un nom d'équipe valide
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="outline" class="col-12 col-md-6" mat-form-field-dense>
+            <mat-label>Nombre maximale des joueurs</mat-label>
+            <input #maxSize min="0"  formControlName="maxSize" matInput type="number"  placeholder="Nombre maximale des joueurs" required>
+          </mat-form-field>
+          <div class="action-bar">
+            <a (click)="back()" mat-button>Abandonner</a>
+            <button color="accent" mat-raised-button type="submit" [disabled]="!this.form.valid" >Valider</button>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-equipe-member-list *ngIf="team && this.team._id" [squadId]="teamId"></app-equipe-member-list>
+
+

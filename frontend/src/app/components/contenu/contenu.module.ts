@@ -26,6 +26,7 @@ import { ChartModule } from 'primeng/chart';
 import { ArbitreComponent } from './arbitre/arbitre.component';
 import { CentresComponent } from './centres/centres.component';
 import { TerrainsComponent } from './terrains/terrains.component';
+import {EquipesModule} from "../../equipes/equipes.module";
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { TerrainsComponent } from './terrains/terrains.component';
         DialogModule,
         ReactiveFormsModule,
         ConfirmDialogModule,
-        ChartModule
+        ChartModule,
+        EquipesModule
     ],
 })
 export class ContenuModule {}

@@ -1,0 +1,50 @@
+<div *ngIf="form !=null" class="container-fluid">
+
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <div *ngIf="member">
+          <form (submit)="submitForm()" [formGroup]="form" class="container" >
+            <mat-form-field appearance="outline" class="col-12 col-md-6" >
+              <mat-label>Prenom</mat-label>
+              <input #firstname formControlName="firstName" maxlength="255" matInput placeholder="Prenom" required>
+              <mat-hint align="end">{{firstname.value.length}} / 255</mat-hint>
+              <mat-error *ngIf="f['firstName'].invalid">
+                Veuillez saisir un prenom valide
+              </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="outline" class="col-12 col-md-6" mat-form-field-dense>
+              <mat-label>Nom</mat-label>
+              <input #lastname id="lastName" formControlName="lastName" matInput placeholder="Nom" required>
+              <mat-hint align="end">{{lastname.value.length}} / 255</mat-hint>
+              <mat-error *ngIf="f['lastName'].invalid">
+                Veuillez saisir un nom valide
+              </mat-error>
+            </mat-form-field>
+            <br>
+
+            <mat-form-field appearance="outline" class="col-12 col-md-6" mat-form-field-dense>
+              <mat-label>Age</mat-label>
+              <input #age formControlName="age" matInput type="number"  placeholder="Age" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Equipe</mat-label>
+              <mat-select #squad formControlName="squad"  required>
+                <mat-option>--</mat-option>
+                <mat-option   *ngFor="let team of teams" [value]="team">
+                  {{team.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="f['squad'].hasError('required')"></mat-error>
+            </mat-form-field>
+            <div class="action-bar">
+              <a (click)="back()" mat-button>Abandonner</a>
+              <button color="accent" mat-raised-button type="submit" [disabled]="!this.form.valid" >Valider</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+

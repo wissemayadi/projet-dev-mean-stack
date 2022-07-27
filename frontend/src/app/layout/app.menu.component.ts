@@ -50,7 +50,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Équipes',
                         icon: 'pi pi-fw pi-users',
-                        routerLink: ['/contenu/equipes'],
+                        routerLink: ['/equipes'],
                     },
                     {
                         label: 'Arbitre',
@@ -63,6 +63,12 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-globe',
                         routerLink: ['/contenu/championnat'],
                     },
+                    {
+                        label: 'Joueurs',
+                        icon: 'pi pi-fw pi-globe',
+                        routerLink: ['/players'],
+                    },
+
                 ],
             },
         ];

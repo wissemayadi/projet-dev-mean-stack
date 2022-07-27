@@ -1,0 +1,38 @@
+
+<div class="row m-0">
+  <div class="container">
+    <mat-card>
+      <mat-card-header class="card-header">
+        <mat-card-title class="connection-title"><br/>Liste des joueurs</mat-card-title>
+        <button (click)="openPDF()" >	<mat-icon>picture_as_pdf</mat-icon></button>
+      </mat-card-header>
+      <div>
+        <table id="member_table" #content [dataSource]="dataSource" color="primary" mat-flat-table mat-table matSort set-color>
+
+          <ng-container matColumnDef="lastName">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header  style="width: 150px"> Nom</th>
+            <td  *matCellDef="let element" mat-cell> {{element.lastName}}  </td>
+          </ng-container>
+
+          <ng-container matColumnDef="firstName">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header style="width: 150px"> Prénom</th>
+            <td  *matCellDef="let element" mat-cell> {{element.firstName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="age">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header style="width: 90px"> Age</th>
+            <td  *matCellDef="let element" mat-cell> {{element.age }} </td>
+          </ng-container>
+
+          <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: displayedColumns;let i=index;" class="{{i%2===1?'odd':'even'}}" mat-row></tr>
+        </table>
+
+        <mat-paginator [pageSize]="5"
+                       color="primary" hidePageSize="true" mat-flat-paginator set-color
+                       showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-card>
+  </div>
+</div>
+

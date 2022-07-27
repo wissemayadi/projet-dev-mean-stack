@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+  cursor: pointer;
+}
+
+.line-actions {
+
+}
+
+td {
+  user-select: none;
+}
+
+mat-chip {
+  font-size: 10px;
+}
+

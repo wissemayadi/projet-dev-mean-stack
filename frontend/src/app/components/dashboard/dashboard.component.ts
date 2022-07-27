@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { Championnat } from 'src/app/_models/championnat';
 import { ChampionnatService } from 'src/app/_services/championnat.service';
 import { ArbitreService } from 'src/app/_services/arbitre.service';
+import {TeamsService} from "../../_services/teams.service";
+import {PlayerServiceHttp} from "../../_services/player.service";
 
 declare const require: any;
 const jsPDF = require('jspdf');
@@ -23,7 +25,8 @@ export class DashboardComponent implements OnInit {
     selecteduser = [];
     submitted: boolean | undefined;
     data: any;
-
+    equipeNumber! : number
+    playersNumber! : number
     chartOptions: any;
 
     subscription: Subscription = new Subscription();
@@ -32,7 +35,9 @@ export class DashboardComponent implements OnInit {
     constructor(
         private championnatService: ChampionnatService,
         private confirmationService: ConfirmationService,
-        private ArbitreService: ArbitreService
+        private ArbitreService: ArbitreService,
+        private  readonly  teamsService : TeamsService,
+        private readonly  playerService : PlayerServiceHttp
     ) {}
     exportColumns!: any[];
     cols!: any[];
@@ -63,6 +68,22 @@ export class DashboardComponent implements OnInit {
                 console.error(err);
             },
         });
+        this.teamsService.count().subscribe({
+            next: (res) => {
+                this.equipeNumber = res;
+            },
+            error: (err) => {
+                console.error(err);
+            },
+        });
+        this.playerService.count().subscribe({
+            next: (res) => {
+                this.playersNumber = res;
+            },
+            error: (err) => {
+                console.error(err);
+            },
+        });
 
         this.championnatService.getAllChampionnat().subscribe({
             next: (res) => {
@@ -71,19 +92,23 @@ export class DashboardComponent implements OnInit {
                 console.log(this.userlist.length);
                 console.log(this.championnats);
                 this.data = {
-                    labels: ['Championnat', 'Arbitre', 'emptydata'],
+                    labels: ['Championnat', 'Arbitre', 'joueurs', 'equipes'],
                     datasets: [
                         {
                             data: [
                                 this.championnats.length,
                                 this.userlist.length,
                                 100,
+                                this.playersNumber,
+                                this.equipeNumber
                             ],
-                            backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726'],
+                            backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726','#FF0700','#00b700'],
                             hoverBackgroundColor: [
                                 '#64B5F6',
                                 '#81C784',
                                 '#FFB74D',
+                                '#FF0700',
+                                '#00b700'
                             ],
                         },
                     ],
@@ -132,7 +157,7 @@ export class DashboardComponent implements OnInit {
         this.loadData();
         let doc = new jsPDF.default('l', 'pt');
         var img = new Image();
-        img.src = 'assets/images/logo1.png';  
+        img.src = 'assets/images/logo1.png';
         doc.addImage(img, 'png', 100, 20, 100, 100);
         doc.setTextColor(0, 0, 139);
         var date = formatDate(new Date(), 'yyyy/MM/dd hh:mm a', 'en');

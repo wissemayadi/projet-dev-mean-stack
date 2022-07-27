@@ -1,0 +1,11 @@
+.edit_admin_message {
+  color: red;
+}
+action-bar {
+  text-align: right;
+  margin: 24px 0px;
+
+button, a {
+  margin-left: 8px;
+}
+}

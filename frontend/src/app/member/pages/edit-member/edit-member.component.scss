@@ -1,0 +1,66 @@
+.edit_admin_message {
+  color: red;
+}
+table {
+  width: 100%;
+  cursor: pointer;
+}
+
+
+td {
+  user-select: none;
+}
+
+
+.row {
+  margin: 0;
+}
+
+:host {
+  .card-header {
+    text-align: center;
+    display: initial;
+
+    .logo {
+      margin: auto;
+      max-height: 120px;
+    }
+  }
+}
+
+.container {
+  margin-top: 8%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 700px;
+}
+
+.mat-card-actions {
+  margin: 0 !important;
+}
+
+.myInput {
+  padding: 0;
+}
+
+button {
+  width: 100%;
+  max-width: none;
+}
+
+.connection-title {
+  display: block;
+  text-align: center;
+  font-weight: 500;
+  font-size: 18px;
+
+}
+
+.error-message {
+  color: var(--set-color-red-60);
+}
+
+.button-add {
+  float:right;
+  margin-top: 1%;
+}

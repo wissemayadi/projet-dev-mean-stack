@@ -1,0 +1,63 @@
+
+<div class="row m-0">
+
+  <div class="container">
+    <mat-card>
+      <mat-card-header class="card-header">
+        <mat-card-title class="connection-title"><br/>Ajouter un nouveau joueur</mat-card-title>
+      </mat-card-header>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-md-8">
+            <div>
+              <form (submit)="submitForm()" [formGroup]="form" class="container">
+                <div class="row">
+                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label>Prénom</mat-label>
+                    <input #firstname formControlName="firstName" matInput maxlength="255" placeholder="Prénom" required>
+                    <mat-hint align="end">{{firstname.value.length}} / 255</mat-hint>
+                    <mat-error *ngIf="f['firstName'].invalid">
+                      Veuillez saisir un prénom valide
+                    </mat-error>
+                  </mat-form-field>
+                  <br>
+                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label>Nom</mat-label>
+                    <input #lastname id="lastName" formControlName="lastName" matInput maxlength="255" placeholder="Nom" required>
+                    <mat-hint align="end">{{lastname.value.length}} / 255</mat-hint>
+                    <mat-error *ngIf="f['lastName'].invalid">
+                      Veuillez saisir un nom valide
+                    </mat-error>
+                  </mat-form-field>
+                  <br>
+                  <mat-form-field appearance="outline" class="col-12 col-md-6">
+                    <mat-label>Age</mat-label>
+                    <input #age formControlName="age" matInput maxlength="255" placeholder="age" required type="number">
+                  </mat-form-field>
+                  <br>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Equipe</mat-label>
+                    <mat-select #squad formControlName="squad"  required>
+                      <mat-option>--</mat-option>
+                      <mat-option *ngFor="let team of teams" [value]="team">
+                        {{team.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="f['squad'].hasError('required')"></mat-error>
+                  </mat-form-field>
+
+                  <div class="action-bar">
+                    <a (click)="back()" mat-button>Abandonner</a>
+                    <button color="accent" mat-raised-button type="submit" [disabled]="!this.form.valid" >Valider</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+

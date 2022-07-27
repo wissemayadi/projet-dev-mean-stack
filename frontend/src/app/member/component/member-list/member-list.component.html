@@ -1,0 +1,50 @@
+<mat-form-field style="width: 300px" appearance="standard">
+  <mat-label>Rechercher un Joueur</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Joueur Nom" #input>
+</mat-form-field>
+<div>
+  <table [dataSource]="dataSource" color="primary" mat-flat-table mat-table matSort set-color>
+
+    <ng-container matColumnDef="lastName">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header  style="width: 150px"> Nom</th>
+      <td (click)="editMember(element)" *matCellDef="let element" mat-cell> {{element.lastName}}  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header style="width: 150px"> Prénom</th>
+      <td (click)="editMember(element)" *matCellDef="let element" mat-cell> {{element.firstName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header style="width: 90px"> Age</th>
+      <td (click)="editMember(element)" *matCellDef="let element" mat-cell> {{element.age }} </td>
+    </ng-container>
+    <ng-container matColumnDef="equipe">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header style="width: 90px"> Equipe</th>
+      <td (click)="editMember(element)" *matCellDef="let element" mat-cell> {{element.squad?.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef class="line-actions" mat-header-cell>Actions</th>
+      <td *matCellDef="let element" class="line-actions" mat-cell>
+        <ng-container >
+          <button (click)="removeMember(element)" aria-label="Example icon-button with a menu" mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button (click)="editMember(element)" aria-label="Example icon-button with a menu" mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
+        </ng-container>
+      </td>
+    </ng-container>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;let i=index;" class="{{i%2===1?'odd':'even'}}" mat-row></tr>
+  </table>
+
+  <mat-paginator [pageSize]="5"
+                 color="primary" hidePageSize="true" mat-flat-paginator set-color
+                 showFirstLastButtons></mat-paginator>
+
+
+</div>
+
