@@ -8,6 +8,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './components/guards/auth.guard';
 import { UtilisateursComponent } from './components/contenu/utilisateurs/utilisateurs.component';
 import { ChampionnatComponent } from './components/contenu/championnat/championnat.component';
+import { CentresComponent } from './components/contenu/centres/centres.component';
+import { TerrainsComponent } from './components/contenu/terrains/terrains.component';
+import { ArbitreComponent } from './components/contenu/arbitre/arbitre.component';
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {HttpRequestInterceptor} from "./interceptors/http-request.interceptor";
 
@@ -26,6 +29,9 @@ import {HttpRequestInterceptor} from "./interceptors/http-request.interceptor";
                         {path:'dashboard', component:DashboardComponent, canActivate: [AuthGuard]},
                         {path:'contenu/utilisateurs', component:UtilisateursComponent, canActivate: [AuthGuard]},
                         {path:'contenu/championnat', component:ChampionnatComponent, canActivate: [AuthGuard]},
+                        {path:'contenu/centres', component:CentresComponent, canActivate: [AuthGuard]},
+                        {path:'contenu/terrains', component:TerrainsComponent, canActivate: [AuthGuard]},
+                        {path:'contenu/arbitre', component:ArbitreComponent, canActivate: [AuthGuard]},
 
                         // { path: '', component: LoginComponent },
                         {path:'',pathMatch:'full',redirectTo:'login'},
