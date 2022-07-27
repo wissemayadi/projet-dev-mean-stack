@@ -29,6 +29,7 @@ export class UtilisateursComponent implements OnInit {
           email:[''],
           password:[''],
           phone:['']
+       
         })
         this.getUser();
         this.countUser();

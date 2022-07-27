@@ -9,7 +9,7 @@ const championnat = new Schema(
     equipe: { type: []  },
     terrain: { type:[]},
     arbitre: { type: [] },
-    score: { type: Number },
+    score: { type: String },
   });
   
   module.exports = Championnat =model("championnat", championnat);
